@@ -1,4 +1,5 @@
 
+
 let xPos;
 let yPos;
 
@@ -7,15 +8,12 @@ let xSpeed = 2;
 
 let sonic;
 
-let ring
-
 let mouseDist
 
 let score = 0
 
 function preload() {
   sonic = loadImage('sonic-running.gif')
-  
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
