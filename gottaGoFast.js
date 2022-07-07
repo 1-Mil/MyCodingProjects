@@ -15,7 +15,7 @@ let score = 0
 
 function preload() {
   sonic = loadImage('sonic-running.gif')
-  ring = loadImage('Ring.gif')
+  
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
