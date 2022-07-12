@@ -14,24 +14,35 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight)
-    imageMode(CENTER)
+  createCanvas(windowWidth, windowHeight)
+  imageMode(CENTER)
 
-    xPos = 0
-    yPos = windowWidth
+  xPos = 0
+  yPos = windowHeight/2
 }
 
 function draw() {
-image(background, windowWidth/2, windowHeight/2, windowWidth, windowHeight)
-image(sonic, xPos, 200, 200)
-
-
-}
-
-function keyPressed() {
-  if (keyCode === UP_ARROW) {
-    yPos -= 1;
-  } else if (keyCode === DOWN_ARROW) {
-    yPos += 1;
+  image(background, windowWidth/2, windowHeight/2, windowWidth, windowHeight)
+  image(sonic, xPos, yPos, 50,50)
+  if(keyIsDown( UP_ARROW)){
+    yPos -= 5;
+  }
+  if(keyIsDown( DOWN_ARROW)){
+    yPos += 5;
+  }
+  if (keyIsDown(LEFT_ARROW)){
+    xPos -= 5;
+  }
+  if (keyIsDown(RIGHT_ARROW)){
+    xPos += 5;
   }
 }
+
+// function keyIsDown() {
+//   if (keyCode === UP_ARROW) {
+//     yPos -= 1;
+//     print("up arrow")
+//   } else if (keyCode === DOWN_ARROW) {
+//     yPos += 1;
+//   }
+// }
