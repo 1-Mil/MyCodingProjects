@@ -6,14 +6,25 @@ let ringY
 
 let sonic
 let ring
-let background
+let gameBackground
 
 let score = 0
+let timer = 60
+
+let startGameBool = true
+let endGameBool = false
+
+let ringSound
+let victory
+let endScreenImage
 
 function preload() {
   sonic = loadImage('sonic-running.gif')
   ring = loadImage ('3D-Ring.webp')
-  background = loadImage('greenBg.jpg')
+  gameBackground = loadImage('greenBg.jpg')
+  ringSound = loadSound('SonicRing.mp3')
+  victory = loadSound('victoryTheme.mp3')
+  endScreenImage = loadImage('endScreen.gif')
 }
 
 function setup() {
@@ -25,10 +36,31 @@ function setup() {
 
   ringX = random(windowWidth)
   ringY = random(windowHeight)
+
+  setInterval(timeDown, 1000)
+}
+
+function timeDown(){
+  if(timer > 0){
+    timer--
+  }
 }
 
 function draw() {
-  image(background, windowWidth/2, windowHeight/2, windowWidth, windowHeight)
+  if(startGameBool == true){
+    startGame()
+  }
+
+  if(endGameBool == true){
+    endGame()
+  }
+
+
+}
+
+function startGame(){
+  victoryStop()
+  image(gameBackground, windowWidth/2, windowHeight/2, windowWidth, windowHeight)
   image(ring, ringX, ringY, 50, 40)
   image(sonic, xPos, yPos, 50,50)
   if(keyIsDown( UP_ARROW)){
@@ -48,11 +80,51 @@ function draw() {
     ringX = random(windowWidth)
     ringY = random(windowHeight)
     score++
+    ringSound.play()
   }
 
   fill(255, 242, 0)
   textSize(40)
-  text(" rings collected: " + score, windowWidth/2, 50)
+  text(" Rings Collected: " + score, windowWidth/2, 50)
+  text(timer, 10, 50)
+
+  if(timer == 0){
+    startGameBool = false
+    endGameBool = true
+  }
+}
+
+function endGame(){
+  background(0)
+  image(endScreenImage, windowWidth/2, windowHeight/2, windowWidth, windowHeight)
+  fill(246, 255, 0)
+  text('congratulations you collected: '+score+' rings! press s to restart!', 10, 50 )
+audioToggle()
+
+}
+
+function audioToggle(){
+  if(!victory.isPlaying()){
+    victory.loop()
+  }
+}
+
+function victoryStop(){
+  if(victory.isPlaying()){
+    victory.stop()
+  }
+}
+
+function keyPressed() {
+if(endGameBool == true){
+  if(key == 's'){
+    score = 0
+    timer=60
+    endGameBool = false
+    startGameBool= true
+  }
+}
+
 }
 
 // function keyIsDown() {
